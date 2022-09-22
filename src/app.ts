@@ -56,10 +56,10 @@ app.delete("/users/:id", async function (req: Request, res: Response) {
   return res.send(results);
 });
 
-app.listen("1234", () => {
+app.listen("8080", () => {
   console.log(`
   ################################################
-  🛡️  Server listening on port: 1234🛡️
+  🛡️  Server listening on port: 8080
   ################################################
 `);
 });
