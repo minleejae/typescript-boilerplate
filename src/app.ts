@@ -19,20 +19,23 @@ app.get("/welcome", (req: Request, res: Response, next: NextFunction) => {
   res.send("welcome!!@");
 });
 
+app.get("/users/:id", async function (req: Request, res: Response) {
+  console.log("params:", req.params.id);
+  const results = await myDataSource.getRepository(User).findOneBy({
+    id: Number(req.params.id),
+  });
+  console.log("GET user", results);
+  return res.send(results);
+});
+
 // register routes
 app.get("/users", async function (req: Request, res: Response) {
   const users = await myDataSource.getRepository(User).find();
   res.json(users);
 });
 
-app.get("/users/:id", async function (req: Request, res: Response) {
-  const results = await myDataSource.getRepository(User).findOneBy({
-    id: Number(req.params.id),
-  });
-  return res.send(results);
-});
-
 app.post("/users", async function (req: Request, res: Response) {
+  console.log(req.body);
   const user = await myDataSource.getRepository(User).create(req.body);
   const results = await myDataSource.getRepository(User).save(user);
   return res.send(results);
